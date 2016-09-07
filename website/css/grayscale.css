@@ -285,7 +285,7 @@ fieldset[disabled] .btn-xl.active {
 }
 @media (min-width: 767px) {
   .content-section {
-    padding-top: 250px;
+    padding-top: 50px;
   }
   .tickets-section {
     padding: 100px 0;
@@ -355,7 +355,7 @@ ul.banner-social-buttons {
 }
 .timeline > li:before,
 .timeline > li:after {
-  content: " ";
+  /*content: " ";*/
   display: table;
 }
 .timeline > li:after {
