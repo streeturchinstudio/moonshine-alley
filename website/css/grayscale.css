@@ -39,7 +39,7 @@ p {
   }
 }
 a {
-  color: #42DCA3;
+  color: #FFC107;
   -webkit-transition: all 0.2s ease-in-out;
   -moz-transition: all 0.2s ease-in-out;
   transition: all 0.2s ease-in-out;
@@ -47,7 +47,7 @@ a {
 a:hover,
 a:focus {
   text-decoration: none;
-  color: #1d9b6c;
+  color: #00BCD4;
 }
 .light {
   font-weight: 400;
@@ -190,7 +190,7 @@ a:focus {
   -moz-animation-timing-function: linear;
 }
 .btn-xl {
-  color: white;
+  color: #00bcd4;
   background-color: #D4D4D4;
   border-color: #D4D4D4;
   font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -285,7 +285,7 @@ fieldset[disabled] .btn-xl.active {
 }
 @media (min-width: 767px) {
   .content-section {
-    padding-top: 250px;
+    padding-top: 50px;
   }
   .tickets-section {
     padding: 100px 0;
@@ -304,16 +304,16 @@ fieldset[disabled] .btn-xl.active {
   transition: all 0.3s ease-in-out;
 }
 .btn-default {
-  border: 1px solid #42DCA3;
-  color: #42DCA3;
+  border: 1px solid #00BCD4;
+  color: #FFC107;
   background-color: transparent;
 }
 .btn-default:hover,
 .btn-default:focus {
-  border: 1px solid #42DCA3;
+  border: 1px solid #00bcd4;
   outline: none;
   color: black;
-  background-color: #42DCA3;
+  background-color: #00bcd4;
 }
 ul.banner-social-buttons {
   margin-top: 0;
@@ -355,7 +355,7 @@ ul.banner-social-buttons {
 }
 .timeline > li:before,
 .timeline > li:after {
-  content: " ";
+  /*content: " ";*/
   display: table;
 }
 .timeline > li:after {
@@ -429,6 +429,11 @@ ul.banner-social-buttons {
 .timeline .timeline-body > ul {
   margin-bottom: 0;
 }
+.timeline-end {
+
+  margin-bottom: 0;
+}
+
 @media (min-width: 768px) {
   .timeline:before {
     left: 50%;
