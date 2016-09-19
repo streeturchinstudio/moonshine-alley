@@ -67,6 +67,6 @@ void setup() {
 
 
 void loop() {
-    writeLog(dateTimeStr(clock));
+    writeLog(clock, "test");
     delay(1000);
 }
