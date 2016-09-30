@@ -118,8 +118,8 @@ void setup() {
 }
 
 void loop() {
-    // FIXME: production value should be LOW
-    if (digitalRead(SWITCH_PIN) == HIGH) {
+    // production value should be LOW
+    if (digitalRead(SWITCH_PIN) == LOW) {
         if (latch == false) {
             // The receiver was just picked up. Play the audio
             latch = true;
