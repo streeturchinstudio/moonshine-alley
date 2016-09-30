@@ -118,7 +118,7 @@ void setup() {
 }
 
 void loop() {
-    // production value should be LOW
+    // Production value should be LOW
     if (digitalRead(SWITCH_PIN) == LOW) {
         if (latch == false) {
             // The receiver was just picked up. Play the audio
