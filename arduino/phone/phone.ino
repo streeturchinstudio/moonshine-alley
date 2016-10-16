@@ -3,9 +3,13 @@
 // used by TMRpcm.h
 #define SDPIN 10
 
-#define SPEAKER_PIN 9
-#define SWITCH_PIN  8
-#define PHONE_NUMBER    "test\0"
+#define SPEAKER_PIN         9
+#define LATCH_PIN           8
+#define AUDIO_SELECT_PIN    7
+#define PHONE_NUMBER        "test"
+
+#define AUDIO_FILE_1        "audio.wav"
+#define AUDIO_FILE_2        "audio2.wav"
 
 
 #include <SPI.h>
@@ -79,8 +83,13 @@ void setup() {
     pinMode(SPEAKER_PIN, OUTPUT);
     digitalWrite(SPEAKER_PIN, LOW);
 
-    pinMode(SWITCH_PIN, INPUT);
-    digitalWrite(SWITCH_PIN, HIGH);
+    // Enable pull-up resistor for receiver latch
+    pinMode(LATCH_PIN, INPUT);
+    digitalWrite(LATCH_PIN, HIGH);
+
+    // Enable pull-up resistor for audio select pin
+    pinMode(AUDIO_SELECT_PIN, INPUT);
+    pinMode(AUDIO_SELECT_PIN, HIGH);
 
     // Setup clock
     clock.stopRTC();
@@ -117,14 +126,26 @@ void setup() {
     writeLog(clock, "init complete");
 }
 
+
+void playAudio() {
+    String msg = "audio file: ";
+    if (digitalRead(AUDIO_SELECT_PIN) == LOW) {
+        writeLog(clock, msg + AUDIO_FILE_1);
+        audio.play(AUDIO_FILE_1);
+    } else {
+        writeLog(clock, msg + AUDIO_FILE_2);
+        audio.play(AUDIO_FILE_2);
+    }
+}
+
 void loop() {
     // Production value should be LOW
-    if (digitalRead(SWITCH_PIN) == LOW) {
+    if (digitalRead(LATCH_PIN) == LOW) {
         if (latch == false) {
             // The receiver was just picked up. Play the audio
             latch = true;
             writeLog(clock, "playing audio");
-            audio.play("audio.wav");
+            playAudio();
             return;
         }
 
@@ -135,11 +156,12 @@ void loop() {
                 writeLog(clock, "playback complete");
             }
 
+            // Should audio repeat in 2 file mode?
             if (sleeping >= 50) {
                 // Time to repeat (50 * 200ms = 10sec)
                 sleeping = 0;
                 writeLog(clock, "repeating audio");
-                audio.play("audio.wav");
+                playAudio();
             } else {
                 sleeping++;
                 delay(200);
