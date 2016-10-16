@@ -1,52 +1,53 @@
-// Still
+// Decoy Still - Fake fire
 
-#include <SPI.h>
-// https://github.com/TMRh20/RF24
-#include <RF24.h>
+// https://github.com/adafruit/Adafruit_NeoPixel
+#include <Adafruit_NeoPixel.h>
 
-#define RADIO_ENABLE_PIN    9
-#define RADIO_SELECT_PIN    10
-#define BLINK_CODE          1337
-#define RETRIES             10
+#define PIN   2
+#define LEDS  24
 
 
-RF24 radio(RADIO_ENABLE_PIN, RADIO_SELECT_PIN);
-byte RADIO_ADDRESS[6] = "Arrow";
+Adafruit_NeoPixel strip = Adafruit_NeoPixel(24, PIN, NEO_GRB + NEO_KHZ800);
+int brightness;
+String buffer;
 
 
 void setup() {
-    // TODO: setup bellow input
-    // TODO: setup ringer
+    strip.begin();
+    strip.setBrightness(255);
+    strip.show();
+
+    brightness = 127;
+    buffer = "";
 
     Serial.begin(9600);
-
-    radio.begin();
-    radio.setPALevel(RF24_PA_LOW);
-
-    radio.openWritingPipe(RADIO_ADDRESS);
-    radio.stopListening();
-    Serial.println("Press 'T' to transmit...");
+    Serial.println("type in a new brightness level (1-256)...");
 }
 
-
 void loop() {
-    // TODO: create real trigger
     if (Serial.available()) {
-        char c = toupper(Serial.read());
-        if (c == 'T') {
-            Serial.print("\nTransmitting...");
-            unsigned long code = BLINK_CODE;
-            for (int x=0; x< RETRIES; x++) {
-                if (radio.write(&code, sizeof(unsigned long))) {
-                    Serial.println("Received");
-                    return;
-                } else {
-                    Serial.println("failed");
-                    delay(100);
-                }
-            }
-            Serial.println("Gave up");
+        char c = Serial.read();
+        if ( c == '\n') {
+            brightness = buffer.toInt();
+            buffer = "";
+        } else if (c >= '0' && c <= '9') {
+            buffer += c;
         }
     }
-    delay(100);
+
+    int r1 = min(255, brightness + random(brightness/2));
+    int g1 = r1/2;
+
+    int r2 = min(255, brightness + random(brightness/2));
+    int g2 = r2/2;
+
+    int r3 = random(brightness);
+
+    for (int x=0; x < LEDS; x+=3) {
+        strip.setPixelColor(x, r1, g1, 0);
+        strip.setPixelColor(x+1, r2, g2, 0);
+        strip.setPixelColor(x+2, r3, 0, 0);
+    }
+    strip.show();
+    delay(random(20, 150));
 }
