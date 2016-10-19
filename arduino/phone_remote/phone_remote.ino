@@ -12,9 +12,12 @@
 
 #define RING_BUTTON_PIN     2
 #define DISABLE_BUTTON_PIN  3
+#define SUCCESS_LED_PIN     4
+#define FAILED_LED_PIN      5
+
 
 RF24 radio(RADIO_ENABLE_PIN, RADIO_SELECT_PIN);
-byte RADIO_ADDRESS[6] = "Phone";
+byte RADIO_ADDRESS[6] = "Phone\0";
 
 
 void setup() {
@@ -25,6 +28,12 @@ void setup() {
     pinMode(DISABLE_BUTTON_PIN, INPUT);
     digitalWrite(DISABLE_BUTTON_PIN, HIGH);
 
+    // Enable LEDS
+    pinMode(SUCCESS_LED_PIN, OUTPUT);
+    digitalWrite(SUCCESS_LED_PIN, LOW);
+
+    pinMode(FAILED_LED_PIN, OUTPUT);
+    digitalWrite(FAILED_LED_PIN, LOW);
 
     Serial.begin(9600);
 
@@ -32,8 +41,28 @@ void setup() {
     radio.setPALevel(RF24_PA_LOW);
 
     radio.openWritingPipe(RADIO_ADDRESS);
+    radio.enableDynamicAck();
     radio.stopListening();
     Serial.println("Init Complete");
+}
+
+
+void success() {
+    digitalWrite(SUCCESS_LED_PIN, HIGH);
+    digitalWrite(FAILED_LED_PIN, LOW);
+    Serial.println("Sent");
+    delay(1000);
+    digitalWrite(SUCCESS_LED_PIN, LOW);
+
+}
+
+
+void failed() {
+    digitalWrite(SUCCESS_LED_PIN, LOW);
+    digitalWrite(FAILED_LED_PIN, HIGH);
+    Serial.println("Gave up");
+    delay(1000);
+    digitalWrite(FAILED_LED_PIN, LOW);
 }
 
 
@@ -41,14 +70,14 @@ void transmitCode(unsigned long code) {
     Serial.print("\nTransmitting...");
     for (int x=0; x< RETRIES; x++) {
         if (radio.write(&code, sizeof(unsigned long))) {
-            Serial.println("Sent");
+            success();
             return;
         } else {
             Serial.println("failed");
             delay(100);
         }
     }
-    Serial.println("Gave up");
+    failed();
 }
 
 

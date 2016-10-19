@@ -9,11 +9,11 @@
 #define DISABLE_CODE        1010
 #define RETRIES             10
 
-#define AUDIO_SELECT_PIN    8
-#define RINGER_PIN          7
+#define AUDIO_SELECT_PIN    2
+#define RINGER_PIN          3
 
 RF24 radio(RADIO_ENABLE_PIN, RADIO_SELECT_PIN);
-byte RADIO_ADDRESS[6] = "Phone";
+byte RADIO_ADDRESS[6] = "Phone\0";
 
 
 void setup() {
