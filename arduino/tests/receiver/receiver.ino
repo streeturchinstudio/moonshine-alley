@@ -3,7 +3,7 @@
 
 #define LED 2
 
-RF24 radio(7,8);
+RF24 radio(9,10);
 byte address[6] = "1Node";
 
 
