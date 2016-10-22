@@ -1,33 +1,43 @@
 // Test an encoder using interrupts
 
 
+// http://www.pjrc.com/teensy/td_libs_Encoder.html
+#include <Encoder.h>
+
+
 #define LED         13
-#define INT_PIN2    2
-#define INT_PIN3    3
 
 
-volatile byte state = HIGH;
-volatile byte state2 = LOW;
-
-
-void enc0() {
-    state = !state;
-}
-
-void enc1() {
-    state2 = !state2;
-}
+Encoder knob(3, 2);
+volatile long position = -999;
 
 void setup() {
-    pinMode(LED, OUTPUT);
-    pinMode(INT_PIN2, INPUT_PULLUP);
-    pinMode(INT_PIN3, INPUT_PULLUP);
-
-    attachInterrupt(digitalPinToInterrupt(INT_PIN2), enc0, LOW);
-    attachInterrupt(digitalPinToInterrupt(INT_PIN3), enc1, LOW);
+    delay(50);
+    position = knob.read();
+    Serial.begin(9600);
+    Serial.println("ready...");
 }
 
 
 void loop() {
-    digitalWrite(LED, state);
+    long new_pos = knob.read();
+    if (new_pos != position) {
+        long delta = new_pos - position;
+        if (delta > 100) {
+            position = new_pos;
+            return;
+        }
+        Serial.print("position: ");
+        Serial.print(new_pos);
+        Serial.print(", delta: ");
+        Serial.println(delta);
+    }
+    position = new_pos;
 }
+
+
+
+
+
+
+
