@@ -5,7 +5,7 @@
 
 #define SPEAKER_PIN         9
 #define LATCH_PIN           8
-#define AUDIO_SELECT_PIN    7
+#define AUDIO_SELECT_PIN    3
 #define PHONE_NUMBER        "test"
 
 #define AUDIO_FILE_1        "audio.wav"
@@ -87,9 +87,8 @@ void setup() {
     pinMode(LATCH_PIN, INPUT);
     digitalWrite(LATCH_PIN, HIGH);
 
-    // Enable pull-up resistor for audio select pin
+    // Enable audio select pin
     pinMode(AUDIO_SELECT_PIN, INPUT);
-    pinMode(AUDIO_SELECT_PIN, HIGH);
 
     // Setup clock
     clock.stopRTC();
