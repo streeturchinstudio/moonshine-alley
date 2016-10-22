@@ -38,7 +38,7 @@ void setup() {
     Serial.begin(9600);
 
     radio.begin();
-    radio.setPALevel(RF24_PA_LOW);
+    radio.setPALevel(RF24_PA_MAX);
 
     radio.openWritingPipe(RADIO_ADDRESS);
     radio.enableDynamicAck();

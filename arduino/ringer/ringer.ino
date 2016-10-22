@@ -23,13 +23,13 @@ void setup() {
 
     // Set audio select to default (high)
     pinMode(AUDIO_SELECT_PIN, OUTPUT);
-    digitalWrite(AUDIO_SELECT_PIN, HIGH);
+    digitalWrite(AUDIO_SELECT_PIN, LOW);
 
     Serial.begin(9600);
     Serial.println("Init Complete. Waiting for signal...");
 
     radio.begin();
-    radio.setPALevel(RF24_PA_LOW);
+    radio.setPALevel(RF24_PA_MAX);
 
     radio.openReadingPipe(1, RADIO_ADDRESS);
     radio.enableDynamicAck();
@@ -39,7 +39,7 @@ void setup() {
 
 void ringRing() {
     // Enable audio2
-    digitalWrite(AUDIO_SELECT_PIN, LOW);
+    digitalWrite(AUDIO_SELECT_PIN, HIGH);
 
     // ring the phone
     digitalWrite(RINGER_PIN, HIGH);
@@ -54,7 +54,7 @@ void ringRing() {
 
 void resetPhone() {
     // switch back to audio 1
-    digitalWrite(AUDIO_SELECT_PIN, HIGH);
+    digitalWrite(AUDIO_SELECT_PIN, LOW);
 }
 
 
