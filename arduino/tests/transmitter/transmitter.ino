@@ -7,7 +7,7 @@ byte address[6] = "1Node";
 
 
 void setup() {
-    Serial.begin(11500);
+    Serial.begin(9600);
     Serial.println("Press N, F to transmit");
 
     radio.begin();
