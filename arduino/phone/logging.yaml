@@ -1,0 +1,13 @@
+mappings:
+  full_play:
+    start: "playing audio"
+    end: "playback complete"
+  short_play:
+    start: "playing audio"
+    end: "hung up"
+  full_repeat:
+    start: "repeating audio"
+    end: "playback complete"
+  short_repeat:
+    start: "repeating audio"
+    end: "hung up"
