@@ -6,7 +6,8 @@
 #define SPEAKER_PIN         9
 #define LATCH_PIN           8
 #define AUDIO_SELECT_PIN    3
-#define PHONE_NUMBER        "test"
+#define PHONE_NUMBER        "TestPhone"
+#define LOG_FILE            "TestPhone.log"
 
 #define AUDIO_FILE_1        "audio.wav"
 #define AUDIO_FILE_2        "audio2.wav"
@@ -54,7 +55,7 @@ String dateTimeStr(swRTC clk) {
 
 
 void writeLog(swRTC clock, String value) {
-    File dataFile = SD.open("log.txt", FILE_WRITE);
+    File dataFile = SD.open(LOG_FILE, FILE_WRITE);
     if (dataFile) {
         // Write to the log file
         dataFile.print(dateTimeStr(clock));

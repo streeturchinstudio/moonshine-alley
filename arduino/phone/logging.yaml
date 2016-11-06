@@ -2,12 +2,16 @@ mappings:
   full_play:
     start: "playing audio"
     end: "playback complete"
+    color: "#67E561"
   short_play:
     start: "playing audio"
     end: "hung up"
+    color: "#3F903B"
   full_repeat:
     start: "repeating audio"
     end: "playback complete"
+    color: "#F93737"
   short_repeat:
     start: "repeating audio"
     end: "hung up"
+    color: "#9F2424"
