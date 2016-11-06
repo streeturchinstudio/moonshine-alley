@@ -21,7 +21,7 @@ void setup() {
     pinMode(RINGER_PIN, OUTPUT);
     digitalWrite(RINGER_PIN, LOW);
 
-    // Set audio select to default (high)
+    // Set audio select to default (low)
     pinMode(AUDIO_SELECT_PIN, OUTPUT);
     digitalWrite(AUDIO_SELECT_PIN, LOW);
 
